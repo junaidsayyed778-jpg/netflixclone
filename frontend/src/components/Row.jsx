@@ -6,9 +6,9 @@ const Row = ({ title, type }) => {
   const movies = useMovies(type);
 
   return (
-    <div className="row">
+    <section className="row">
 
-      <h2>{title}</h2>
+      <h2 className="row__title">{title}</h2>
 
       <div className="row__movies">
 
@@ -18,7 +18,7 @@ const Row = ({ title, type }) => {
 
       </div>
 
-    </div>
+    </section>
   );
 };
 

@@ -5,12 +5,17 @@ const MovieCard = ({ movie }) => {
   return (
     <div className="movieCard">
 
-      <img
-        src={`${IMG_URL}${movie.poster_path}`}
-        alt={movie.title || movie.name}
-      />
+      <div className="movieCard__imageWrapper">
+        <img
+          className="movieCard__image"
+          src={`${IMG_URL}${movie.poster_path}`}
+          alt={movie.title || movie.name}
+        />
+      </div>
 
-      <p>{movie.title || movie.name}</p>
+      <p className="movieCard__title">
+        {movie.title || movie.name}
+      </p>
 
     </div>
   );
