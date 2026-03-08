@@ -1,0 +1,107 @@
+$netflix-red: #e50914;
+$netflix-black: #141414;
+
+.login {
+  position: relative;
+  min-height: 100vh;
+  background: url("https://assets.nflxext.com/ffe/siteui/vlv3/6e32b96a-d4be-4e44-a19b-1bd2d2279b51/ee068656-14b9-4821-89b4-53b4937d9f1c/IN-en-20220516-popsignuptwoweeks-perspective_alpha_website_small.jpg")
+    no-repeat center center/cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.holder {
+  position: relative;
+  z-index: 2;
+  width: 420px;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 60px 68px 40px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.holder h1 {
+  color: white;
+  font-size: 32px;
+  margin-bottom: 25px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control {
+  background: #333;
+  border: none;
+  outline: none;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  color: white;
+  font-size: 15px;
+}
+
+.form-control::placeholder {
+  color: #8c8c8c;
+}
+
+.form-control:focus {
+  background: #454545;
+}
+
+.btn {
+  background: $netflix-red;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background: #f40612;
+}
+
+.text-danger {
+  color: #e87c03;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.login-signup-now {
+  margin-top: 30px;
+  color: #737373;
+  font-size: 16px;
+
+  a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 600px) {
+  .holder {
+    width: 100%;
+    padding: 40px 30px;
+  }
+}
