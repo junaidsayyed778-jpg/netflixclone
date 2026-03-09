@@ -1,6 +1,8 @@
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../features/hooks/useAuth";
 
 const Header = () => {
+  const { user } = useAuth()
   const navigate = useNavigate();
 
   const clickHandler = (e) => {
@@ -11,7 +13,6 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__container">
-
         <Link className="header__logo" to="/">
           <img
             src="https://www.freepnglogos.com/uploads/netflix-logo-0.png"
@@ -25,14 +26,10 @@ const Header = () => {
             <option>Hindi</option>
           </select>
 
-          <button
-            className="header__signin"
-            onClick={clickHandler}
-          >
-            Sign In
+          <button className="header__signin" onClick={clickHandler}>
+            {user ? "Logout" : "Sign In"}
           </button>
         </div>
-
       </div>
     </header>
   );
