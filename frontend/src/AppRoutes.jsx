@@ -8,6 +8,7 @@ import List from "./components/List";
 import { createBrowserRouter } from 'react-router-dom';
 import Protected from "./components/Protected";
 import Register from "./components/Register";
+import Watchlist from "./components/watchlist";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,17 @@ export const router = createBrowserRouter([
         <Register />
       </>
     ),
+  },
+  {
+    path: "/watchlist",
+    element:(
+          <Protected>
+        <>
+         
+          <Watchlist />
+        </>
+      </Protected>
+    )
   },
   {
     path: "/dashboard",

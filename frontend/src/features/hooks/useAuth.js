@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../authContext";
 import {getMe, login, regsiter } from "../services/authServices";
 
@@ -25,6 +25,7 @@ export const useAuth = () => {
     try {
       const data = await regsiter({ username, email, password });
       setUser(data.user);
+      return true
     } catch (err) {
       console.log(err);
     } finally {

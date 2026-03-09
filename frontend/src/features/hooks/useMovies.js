@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { fetchMovies } from "../services/movieService";
 
 const useMovies = (type) => {
-
   const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+
+  const loadMovies = async () => {
+    const data = await fetchMovies(type, page);
+    setMovies((prev) => [...prev, ...data]);
+  };
 
   useEffect(() => {
+    loadMovies();
+  }, [page, type]);
 
-    const getMovies = async () => {
-      const data = await fetchMovies(type);
-      setMovies(data);
-    };
+  const loadMore = () => setPage((prev) => prev + 1);
 
-    getMovies();
-
-  }, [type]);
-
-  return movies;
+  return { movies, loadMore };
 };
 
 export default useMovies;

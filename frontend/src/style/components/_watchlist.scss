@@ -1,0 +1,45 @@
+.watchlist {
+  padding: 20px;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  &__empty {
+    font-size: 18px;
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  &__card {
+    width: 150px;
+    text-align: center;
+  }
+
+  &__card img {
+    width: 100%;
+    border-radius: 6px;
+  }
+
+  &__title {
+    margin: 8px 0;
+    font-size: 14px;
+  }
+
+  &__remove {
+    padding: 6px 10px;
+    border: none;
+    background: #e50914;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  &__remove:hover {
+    background: #b20710;
+  }
+}

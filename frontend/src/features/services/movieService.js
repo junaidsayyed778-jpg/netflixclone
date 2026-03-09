@@ -12,7 +12,7 @@ const endpoints = {
   upcoming: "/movie/upcoming",
 };
 
-export const fetchMovies = async (type) => {
-  const res = await axios.get(`${URL}${endpoints[type]}?api_key=${API_KEY}`);
+export const fetchMovies = async (type, page = 1) => {
+  const res = await axios.get(`${URL}${endpoints[type]}?api_key=${API_KEY}&page=${page}`);
   return res.data.results;
 };

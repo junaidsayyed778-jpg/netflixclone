@@ -116,11 +116,14 @@ async function logoutUser(req, res){
 
   await blacklistModel.create({ token });
   
-  res.clearCookie("token");
-  res.status(200).json({
-    message: "User logged out successfully"
-  })
-}
+ res.clearCookie("token", {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false, // production me true
+  });
+
+  res.status(200).json({ message: "Logged out successfully" });
+};
 
 /**
  * @name getMeController

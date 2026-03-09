@@ -18,3 +18,76 @@
   margin-top: 6px;
   text-align: center;
 }
+.header__watchlist {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #e50914; // Netflix red
+  }
+}
+
+.movieCard__watchlistBtn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: none;
+  background-color: #e50914; // Netflix red
+  color: #fff;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #b20710;
+  }
+}
+
+.movieCard {
+  position: relative;
+
+  &__imageWrapper {
+    position: relative;
+  }
+
+  &__message {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    
+    animation: fadeSlide 2s ease forwards;
+    pointer-events: none;
+  }
+}
+
+@keyframes fadeSlide {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+}

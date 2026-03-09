@@ -1,13 +1,19 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../features/hooks/useAuth";
+import { logout } from "../features/services/authServices";
 
 const Header = () => {
-  const { user } = useAuth()
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  const clickHandler = (e) => {
+  const clickHandler = async(e) => {
     e.preventDefault();
-    navigate("/login");
+    try{
+      await logout();
+      navigate("/login")
+    }catch(err){
+      console.error("logout error: ", err)
+    }
   };
 
   return (
@@ -29,6 +35,9 @@ const Header = () => {
           <button className="header__signin" onClick={clickHandler}>
             {user ? "Logout" : "Sign In"}
           </button>
+          {user && location.pathname !== "/login" && (
+                <Link to="/watchlist" className="header__watchlist">My Watchlist</Link>
+              )}
         </div>
       </div>
     </header>

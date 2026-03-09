@@ -1,6 +1,7 @@
 import Row from "./Row"
 import "../style/index.scss"
 const HomeBanner = () => {
+  
    return (
     <div>
 

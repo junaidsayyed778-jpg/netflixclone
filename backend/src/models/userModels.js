@@ -14,7 +14,20 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: [true, "Password is required"]
-    }
+    },
+
+    watchlist:[
+        {
+            movieId: String,
+            title: String,
+            poster: String,
+            backdrop: String,
+            addedAt:{
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
 })
 
 const userModel = mongoose.model("user", userSchema);
