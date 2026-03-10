@@ -5,7 +5,7 @@ import HomeBanner from "./components/HomeBanner";
 import Login from "./components/Login";
 import Banner from "./components/Banner";
 import List from "./components/List";
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Protected from "./components/Protected";
 import Register from "./components/Register";
 import Watchlist from "./components/watchlist";
