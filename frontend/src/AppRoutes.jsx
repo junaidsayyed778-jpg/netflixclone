@@ -72,4 +72,8 @@ export const router = createBrowserRouter([
       </Protected>
     ),
   },
+   {
+    path: "*",
+    element: <Navigate to="/" />
+  }
 ]);
