@@ -32,3 +32,76 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+.home {
+  padding: 20px;
+}
+
+.row {
+  margin-bottom: 30px;
+
+  h2 {
+    color: white;
+    margin-bottom: 10px;
+  }
+}
+
+.row__posters {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding-bottom: 10px;
+
+  scrollbar-width: none; // Firefox
+}
+
+.row__posters::-webkit-scrollbar {
+  display: none;
+}
+
+.movieCard {
+  min-width: 180px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.08);
+  }
+
+  img {
+    width: 100%;
+    border-radius: 6px;
+  }
+}
+
+/* Tablet */
+
+@media (max-width: 1024px) {
+
+  .movieCard {
+    min-width: 150px;
+  }
+
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .home {
+    padding: 10px;
+  }
+
+  .movieCard {
+    min-width: 130px;
+  }
+
+}
+
+/* Small Mobile */
+
+@media (max-width: 480px) {
+
+  .movieCard {
+    min-width: 110px;
+  }
+
+}

@@ -1,9 +1,8 @@
-import Row from "./Row"
+import Row from "./Row";
 
 const HomeBanner = () => {
-  
-   return (
-    <div>
+  return (
+    <div className="home">
 
       <Row title="Trending" type="trending" />
       <Row title="Popular" type="popular" />
@@ -12,6 +11,6 @@ const HomeBanner = () => {
 
     </div>
   );
-}
+};
 
 export default HomeBanner;
