@@ -1,11 +1,12 @@
 import React from "react";
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+
 import './App.scss';
 import Header from './components/Header';
 import HomeBanner from "./components/HomeBanner";
 import Login from "./components/Login";
 import Banner from "./components/Banner";
 import List from "./components/List";
-import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Protected from "./components/Protected";
 import Register from "./components/Register";
 import Watchlist from "./components/watchlist";
