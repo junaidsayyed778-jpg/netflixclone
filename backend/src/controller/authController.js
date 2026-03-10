@@ -118,8 +118,8 @@ async function logoutUser(req, res){
   
  res.clearCookie("token", {
     httpOnly: true,
-    sameSite: "lax",
-    secure: false, // production me true
+    sameSite: "none",
+    secure: true, // production me true
   });
 
   res.status(200).json({ message: "Logged out successfully" });
