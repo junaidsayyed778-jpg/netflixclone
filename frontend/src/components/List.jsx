@@ -1,30 +1,42 @@
 import { useEffect, useState } from "react";
-import { fetchData } from "../api/api";
+import { useNavigate } from "react-router-dom";
+import { fetchMovies } from "../features/services/movieService";
 
 const List = ({ title, param }) => {
+  const navigate = useNavigate();
   const [list, setList] = useState([]);
-  useEffect(()=>{
-    fetchData(param).then( res => setList(res.data.results))
-  },[]);
-  console.log(list)
-  return(
+
+  useEffect(() => {
+    fetchMovies(param).then((res) => setList(res.data.results));
+  }, [param]);
+
+  return (
     <div className="list">
       <div className="row">
-        <h2 className="text-white title">{ title }</h2>
+        <h2 className="text-white title">{title}</h2>
+
         <div className="col">
           <div className="row__posters">
-            {
-              list.map(item => <img
-                className="row__poster row__posterLarge"
-                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                alt={item.title}
-              />)
-            }
+            {list.map((movie) => (
+              <div
+                key={movie.id}
+                className="movieCard"
+                onClick={() => {
+                  console.log("clicked", movie.id);
+                  navigate(`/title/movie/${movie.id}`);
+                }}
+              >
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                  alt={movie.title}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default List;

@@ -1,6 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../features/hooks/useAuth";
 import { logout } from "../features/services/authServices";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const { user } = useAuth();
@@ -27,11 +28,7 @@ const Header = () => {
         </Link>
 
         <div className="header__actions">
-          <select className="header__language">
-            <option>English</option>
-            <option>Hindi</option>
-          </select>
-
+          <SearchBar />
           <button className="header__signin" onClick={clickHandler}>
             {user ? "Logout" : "Sign In"}
           </button>

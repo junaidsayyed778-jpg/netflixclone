@@ -1,8 +1,8 @@
 import React from "react";
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import './App.scss';
-import Header from './components/Header';
+import "./App.scss";
+import Header from "./components/Header";
 import HomeBanner from "./components/HomeBanner";
 import Login from "./components/Login";
 import Banner from "./components/Banner";
@@ -10,6 +10,7 @@ import List from "./components/List";
 import Protected from "./components/Protected";
 import Register from "./components/Register";
 import Watchlist from "./components/watchlist";
+import MovieDetails from "./components/MovieDetails";
 
 export const router = createBrowserRouter([
   {
@@ -23,9 +24,19 @@ export const router = createBrowserRouter([
       </Protected>
     ),
   },
-    {
+  {
     path: "/index.html",
-    element: <Navigate to="/" />
+    element: <Navigate to="/" />,
+  },
+  {
+    path: "/title/:type/:id",
+    element: (
+      <Protected>
+        <>
+          <MovieDetails />
+        </>
+      </Protected>
+    ),
   },
   {
     path: "/login",
@@ -47,14 +58,13 @@ export const router = createBrowserRouter([
   },
   {
     path: "/watchlist",
-    element:(
-          <Protected>
+    element: (
+      <Protected>
         <>
-         
           <Watchlist />
         </>
       </Protected>
-    )
+    ),
   },
   {
     path: "/dashboard",
@@ -73,8 +83,8 @@ export const router = createBrowserRouter([
       </Protected>
     ),
   },
-   {
+  {
     path: "*",
-    element: <Navigate to="/" />
-  }
+    element: <Navigate to="/" />,
+  },
 ]);

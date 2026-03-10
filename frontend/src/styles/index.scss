@@ -6,6 +6,9 @@
 @use "./components/_row";
 @use "./components/_movieCard";
 @use "./components/_watchlist";
+@use "./components/_searchBar";
+@use "./components/movieDetails.scss";
+
 
 /* Pages */
 @use "./pages/_home";

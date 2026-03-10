@@ -1,0 +1,41 @@
+.movie-details {
+  color: white;
+}
+
+.banner {
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+.banner-content {
+  padding: 40px;
+  background: linear-gradient(to top, #000, transparent);
+}
+
+.section-title {
+  margin: 30px;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 150px);
+  gap: 20px;
+  padding: 20px;
+}
+
+.movie-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.movie-card:hover {
+  transform: scale(1.1);
+}
+
+.movie-card img {
+  width: 100%;
+  border-radius: 5px;
+}

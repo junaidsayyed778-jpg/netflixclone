@@ -9,3 +9,16 @@
   top: 0;
   width: 100%;
 }
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for IE */
+body {
+  -ms-overflow-style: none;
+}

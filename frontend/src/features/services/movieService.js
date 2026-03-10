@@ -16,3 +16,43 @@ export const fetchMovies = async (type, page = 1) => {
   const res = await axios.get(`${URL}${endpoints[type]}?api_key=${API_KEY}&page=${page}`);
   return res.data.results;
 };
+
+export const searchMovies = async (query) => {
+  const res = await axios.get( `${URL}/search/movie?api_key=${API_KEY}&query=${query}`)
+  return res.data.results;
+}
+
+export const getMovieDetails = async (id) => {
+  const res = await axios.get(
+    `${URL}/movie/${id}?api_key=${API_KEY}`
+  );
+  return res.data
+};
+
+export const getMovieRecommendations = async (id) => {
+  const res = await axios.get(
+    `${URL}/movie/${id}/recommendations?api_key=${API_KEY}`
+  );
+  return res.data.results;
+};
+
+export const getTVDetails = async (id) => {
+  const res = await axios.get(
+    `${URL}/tv/${id}?api_key=${API_KEY}`
+  );
+  return res.data;
+};
+
+export const getTVRecommendations = async (id) => {
+  const res = await axios.get(
+    `${URL}/tv/${id}/recommendations?api_key=${API_KEY}`
+  );
+  return res.data.results;
+};
+
+export const getTVSimilar = async (id) => {
+  const res = await axios.get(
+    `${URL}/tv/${id}/similar?api_key=${API_KEY}`
+  );
+  return res.data.results;
+};
