@@ -22,6 +22,10 @@ export const router = createBrowserRouter([
       </Protected>
     ),
   },
+    {
+    path: "/index.html",
+    element: <Navigate to="/" />
+  },
   {
     path: "/login",
     element: (

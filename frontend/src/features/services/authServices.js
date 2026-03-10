@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://netflixclone-backend-v626.onrender.com/api/auth",
+  baseURL: "https://netflixclone-backend-v626.onrender.com/api/auth"
+  ,
   withCredentials: true
 });
 
