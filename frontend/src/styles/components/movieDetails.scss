@@ -1,41 +1,172 @@
-.movie-details {
-  color: white;
+.movieDetails {
+  background-color: #141414;
+  color: #fff;
+  min-height: 100vh;
 }
 
-.banner {
-  height: 400px;
+/* LOADING */
+
+.movieDetails__loading {
+  text-align: center;
+  padding: 60px;
+  font-size: 22px;
+}
+
+
+/* HERO SECTION */
+
+.movieDetails__hero {
+  height: 70vh;
   background-size: cover;
   background-position: center;
-  display: flex;
-  align-items: flex-end;
+  position: relative;
 }
 
-.banner-content {
-  padding: 40px;
-  background: linear-gradient(to top, #000, transparent);
-}
+/* DARK GRADIENT */
 
-.section-title {
-  margin: 30px;
-}
-
-.movie-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
-  gap: 20px;
-  padding: 20px;
-}
-
-.movie-card {
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.movie-card:hover {
-  transform: scale(1.1);
-}
-
-.movie-card img {
+.movieDetails__overlay {
   width: 100%;
-  border-radius: 5px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 60px;
+
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.9) 20%,
+    rgba(0,0,0,0.5) 60%,
+    rgba(0,0,0,0.1)
+  );
+}
+
+.movieDetails__content {
+  max-width: 500px;
+}
+
+/* TITLE */
+
+.movieDetails__title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* DESCRIPTION */
+
+.movieDetails__overview {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: #ddd;
+}
+
+
+/* BUTTONS */
+
+.movieDetails__buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* TRAILER BUTTON */
+
+.movieDetails__play {
+  background: white;
+  color: black;
+  border: none;
+  padding: 10px 22px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.movieDetails__play:hover {
+  background: #e6e6e6;
+}
+
+/* WATCHLIST BUTTON */
+
+.movieDetails__watchlist {
+  background: rgba(109,109,110,0.7);
+  border: none;
+  padding: 10px 22px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.movieDetails__watchlist:hover {
+  background: rgba(109,109,110,0.4);
+}
+
+
+/* RECOMMENDATIONS */
+
+.movieDetails__recommendations {
+  padding: 40px 60px;
+}
+
+.movieDetails__sectionTitle {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+
+/* MOVIE GRID */
+
+.movieDetails__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+
+/* MOVIE CARD */
+
+.movieDetails__card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.movieDetails__card img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.movieDetails__card p {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.movieDetails__card:hover {
+  transform: scale(1.08);
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .movieDetails__hero {
+    height: 60vh;
+  }
+
+  .movieDetails__overlay {
+    padding: 30px;
+  }
+
+  .movieDetails__title {
+    font-size: 32px;
+  }
+
+  .movieDetails__overview {
+    font-size: 14px;
+  }
+
+  .movieDetails__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
 }

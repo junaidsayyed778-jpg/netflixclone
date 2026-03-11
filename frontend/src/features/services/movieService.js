@@ -56,3 +56,18 @@ export const getTVSimilar = async (id) => {
   );
   return res.data.results;
 };
+export const getMovieTrailer = async (id) => {
+
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}`
+  );
+
+  const data = await res.json();
+
+  const trailer = data.results.find(
+    (vid) => vid.type === "Trailer"
+  );
+
+  return trailer?.key;
+
+};
