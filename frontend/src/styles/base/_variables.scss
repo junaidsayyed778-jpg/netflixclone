@@ -1,10 +1,18 @@
-$netflix-red: #e50914;
-$netflix-black: #111;
-$text-white: #ffffff;
 
-$spacing-sm: 10px;
-$spacing-md: 20px;
-$spacing-lg: 40px;
+@use 'sass:color';
 
-$radius-sm: 4px;
-$radius-md: 8px;
+$netflix-red: #e50914 !default;
+$netflix-black: #141414 !default;
+$text-primary: #ffffff !default;
+$text-secondary: #b3b3b3 !default;
+$border-color: #333333 !default;
+
+$header-height: 70px !default;
+$header-bg: rgba(20, 20, 20, 0.95) !default;
+$header-bg-solid: #141414 !default;
+
+$accent-red: $netflix-red !default;
+$accent-hover: color.adjust($accent-red, $lightness: 5%) !default;
+
+$transition: all 0.3s ease !default;
+$breakpoint-mobile: 768px !default;
