@@ -1,44 +1,54 @@
 .row {
   margin: 40px 0;
-  padding-left: 40px;
+  
+  // 🔥 CHANGE 1: Symmetric padding (was padding-left: 40px)
+  padding: 0 20px;  // ✅ Equal left + right padding
 }
 
 .row__title {
   font-size: 22px;
   margin-bottom: 15px;
+  
+  // 🔥 CHANGE 2: Center the title text
+  text-align: center;
 }
 
 .row:first-child {
   margin-top: 120px;   // pushes Trending down
 }
+
 .row__movies {
   display: flex;
   gap: 15px;
-
   overflow-x: auto;
   overflow-y: hidden;
-
-  scroll-behavior: smooth;   // ✅ smooth scrolling
+  scroll-behavior: smooth;
   padding-bottom: 10px;
+  
+  // 🔥 CHANGE 3: Center posters inside scroll container
+  justify-content: center; // ✅ Centers when content < viewport
+  padding: 0 10px; // ✅ Small symmetric padding for edge posters
 }
 
 /* hide scrollbar */
-
 .row__movies::-webkit-scrollbar {
   display: none;
 }
-
 .row__movies {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .home {
   padding: 20px;
+  
+  // ✅ Optional: Center home content wrapper
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .row {
   margin-bottom: 30px;
-
   h2 {
     color: white;
     margin-bottom: 10px;
@@ -50,10 +60,12 @@
   overflow-x: auto;
   gap: 12px;
   padding-bottom: 10px;
-
-  scrollbar-width: none; // Firefox
+  scrollbar-width: none;
+  
+  // ✅ Center posters + symmetric edge padding
+  justify-content: center;
+  padding: 0 10px;
 }
-
 .row__posters::-webkit-scrollbar {
   display: none;
 }
@@ -61,11 +73,11 @@
 .movieCard {
   min-width: 180px;
   transition: transform 0.3s ease;
-
+  
   &:hover {
     transform: scale(1.08);
   }
-
+  
   img {
     width: 100%;
     border-radius: 6px;
@@ -73,35 +85,44 @@
 }
 
 /* Tablet */
-
 @media (max-width: 1024px) {
-
   .movieCard {
     min-width: 150px;
   }
-
 }
 
 /* Mobile */
-
 @media (max-width: 768px) {
-
   .home {
     padding: 10px;
   }
-
+  
   .movieCard {
     min-width: 130px;
   }
-
+  
+  // 🔥 Mobile: Center title + symmetric row padding
+  .row {
+    padding: 0 10px;
+  }
+  
+  .row__title {
+    text-align: center;
+  }
+  
+  .row__posters {
+    justify-content: center;
+    padding: 0 5px;
+  }
 }
 
 /* Small Mobile */
-
 @media (max-width: 480px) {
-
   .movieCard {
     min-width: 110px;
   }
-
+  
+  .row {
+    padding: 0 5px;
+  }
 }
