@@ -277,6 +277,35 @@ $transition: 0.2s ease;
   }
 }
 
+.auth__link {
+  color: $netflix-red;
+  font-weight: 600;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.auth__link--small {
+  color: $netflix-red;
+  font-size: 0.85rem;
+  text-decoration: none;
+  font-weight: 500;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ───────────────────────────────────────────────────
+// 🔷 Forgot Password Section
+// ───────────────────────────────────────────────────
+.auth__forgot {
+  text-align: right;
+  margin: -8px 0 12px;
+}
+
 // ───────────────────────────────────────────────────
 // 🔷 Loading Spinner
 // ───────────────────────────────────────────────────
@@ -308,11 +337,27 @@ $transition: 0.2s ease;
 }
 
 // ───────────────────────────────────────────────────
+// 🔷 Demo Hint Box (For Testing - Optional)
+// ───────────────────────────────────────────────────
+.auth__demo {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(245, 197, 24, 0.1);
+  border: 1px solid rgba(245, 197, 24, 0.3);
+  border-radius: 6px;
+  text-align: center;
+  
+  p {
+    color: #f5c518;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+}
+
+// ───────────────────────────────────────────────────
 // 🔷 [FUTURE] OTP Styles - Commented for Later Use
 // ───────────────────────────────────────────────────
-
 /* 
-// Email + OTP Group Layout
 .email-otp-group {
   display: flex;
   gap: 0.5rem;
@@ -327,14 +372,12 @@ $transition: 0.2s ease;
   }
 }
 
-// OTP Timer
 .otp-timer {
   font-size: 0.85rem;
   color: #888;
   padding: 0.6rem 1rem;
 }
 
-// OTP Section
 .otp-section {
   display: flex;
   gap: 0.5rem;
@@ -350,7 +393,6 @@ $transition: 0.2s ease;
   }
 }
 
-// Mobile OTP Responsive
 @media (max-width: 480px) {
   .email-otp-group,
   .otp-section {
@@ -387,6 +429,16 @@ $transition: 0.2s ease;
   }
 }
 
+@media (max-width: 480px) {
+  .auth__header h1 {
+    font-size: 24px;
+  }
+  
+  .auth__footer {
+    font-size: 14px;
+  }
+}
+
 // ───────────────────────────────────────────────────
 // 🔷 Accessibility
 // ───────────────────────────────────────────────────
@@ -401,7 +453,9 @@ $transition: 0.2s ease;
 
 .auth__input:focus-visible,
 .auth__btn:focus-visible,
-.auth__footer a:focus-visible {
+.auth__footer a:focus-visible,
+.auth__link:focus-visible {
   outline: 2px solid $netflix-red;
   outline-offset: 2px;
+  border-radius: 4px;
 }

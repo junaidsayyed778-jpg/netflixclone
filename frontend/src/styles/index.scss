@@ -5,10 +5,13 @@
 /* Components */
 @use "./components/_row";
 @use "./components/_movieCard";
-@use "./components/_watchlist";
+
 @use "./components/_searchBar";
 @use "./components/movieDetails.scss";
 @use "./components/_header.scss";
+@use "./components/register";
+@use "./components/login";
+
 
 
 /* Pages */
