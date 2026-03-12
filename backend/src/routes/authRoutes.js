@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerUser, loginUser, logoutUser, getMe } = require("../controller/authController");
+const { registerUser,verifyOTP, loginUser, logoutUser, getMe, resendOTP, sendOTPController } = require("../controller/authController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 const router = express.Router();
@@ -8,7 +8,11 @@ const router = express.Router();
 * @description Register a new user
 * @access public
 */
+router.post("/send-otp", sendOTPController)
 router.post("/register", registerUser)
+router.post("/verify-otp", verifyOTP)
+router.post("/resend-otp", resendOTP)
+
 
 /**
  * @routes POST /api/auth/login

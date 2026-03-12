@@ -6,13 +6,11 @@ const cookieParser = require("cookie-parser")
 
 const app = express();
 app.use(cookieParser())
+// Middleware
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://netflixclone-frontend-tizx.onrender.com"
-  ],
-    credentials: true
-}))
+  origin: ["http://localhost:5173", "http://localhost:3000"], // Your frontend
+  credentials: true,
+}));
 app.use(express.json());
 
 //Routes

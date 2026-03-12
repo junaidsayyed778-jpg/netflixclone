@@ -2,59 +2,230 @@
 const userModel = require("../models/userModels")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const blacklistModel = require("../models/blacklistModel")
+const blacklistModel = require("../models/blacklistModel");
+const sendOTP = require("../utils/sendEmail");
 
 /**
- *
  * @name registerController
- * @description This controller will handle user registration logic. It will receive user data from the request, validate it, and then create a new user in the database.
+ * @description Handle user registration with OTP verification flow
+ * Flow: 1) Send OTP → 2) Verify OTP → 3) Complete Registration
  */
+
+// ───────────────────────────────────────────────────
+// UTILS (Add these at top of file or in separate utils/)
+// ───────────────────────────────────────────────────
+const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
+
+const hashOTP = (otp) => {
+  const crypto = require("crypto");
+  return crypto.createHash("sha256").update(otp).digest("hex");
+};
+
+// ───────────────────────────────────────────────────
+// SEND OTP
+// ───────────────────────────────────────────────────
+async function sendOTPController(req, res) {
+  try {
+    const { email } = req.body;
+
+    if (!email || !email.includes("@")) {
+      return res.status(400).json({ message: "Please provide a valid email" });
+    }
+
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser?.isVerified) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    const otp = generateOTP();
+    const otpHash = hashOTP(otp);
+    const otpExpiry = Date.now() + 5 * 60 * 1000;
+
+    if (existingUser) {
+      existingUser.otp = otpHash;
+      existingUser.otpExpiry = otpExpiry;
+      await existingUser.save();
+    } else {
+      await userModel.create({
+        email,
+        otp: otpHash,
+        otpExpiry,
+        isVerified: false,
+      });
+    }
+
+    await sendOTP(email, otp);
+
+    // ✅ DEV ONLY - Remove in production
+    if (process.env.NODE_ENV === "development") {
+      console.log(`🔐 OTP for ${email}: ${otp}`);
+    }
+
+    res.status(200).json({
+      message: "OTP sent successfully. Check your email.",
+      email,
+    });
+  } catch (err) {
+    console.error("Send OTP error:", err.message);
+    res.status(500).json({ message: err.message || "Failed to send OTP" });
+  }
+}
+
+// ───────────────────────────────────────────────────
+// @name registerUser - Complete registration AFTER OTP verified
+// ───────────────────────────────────────────────────
 async function registerUser(req, res) {
-  const { username, email, password } = req.body;
+  try {
+    const { username, email, password, otp } = req.body;
 
-  //validation
-  if (!username || !email || !password) {
-    return res.status(400).json({
-      message: "Please provide username, email and password",
+    // Validation
+    if (!username || !email || !password || !otp) {
+      return res.status(400).json({
+        message: "Please provide username, email, password and OTP",
+      });
+    }
+
+    // Find user and include OTP fields for verification
+    const user = await userModel.findOne({ email }).select("+otp +otpExpiry +isVerified");
+
+    if (!user) {
+      return res.status(404).json({ message: "No registration found. Please send OTP first." });
+    }
+
+    // Check if already verified
+    if (user.isVerified) {
+      return res.status(400).json({ message: "Email already verified. Please login." });
+    }
+
+    // Check OTP expiration
+    if (user.otpExpiry < Date.now()) {
+      user.otp = null;
+      user.otpExpiry = null;
+      await user.save();
+      return res.status(400).json({ message: "OTP expired. Please request a new one." });
+    }
+
+    // Verify OTP (hash input and compare)
+    const otpHash = hashOTP(otp);
+    if (user.otp !== otpHash) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    // ✅ OTP verified! Now create full user account
+    const hash = await bcrypt.hash(password, 10);
+
+    user.username = username;
+    user.password = hash;
+    user.isVerified = true;
+    user.otp = null;
+    user.otpExpiry = null;
+
+    await user.save();
+
+    // Generate token ONLY after successful verification
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
     });
-  }
 
-  const isUserAlreadyExists = await userModel.findOne({
-    $or: [{ email }, { username }],
-  });
-
-  //check if user already exists
-  if (isUserAlreadyExists) {
-    return res.status(400).json({
-      message: "User already exists",
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
     });
+
+    res.status(201).json({
+      message: "User registered successfully",
+      user: {
+        id: user._id,
+        email: user.email,
+        username: user.username,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message || "Registration failed" });
   }
+}
 
-  const hash = await bcrypt.hash(password, 10);
+// ───────────────────────────────────────────────────
+// @name verifyOTP - Your original function (enhanced)
+// ───────────────────────────────────────────────────
+async function verifyOTP(req, res) {
+  try {
+    const { email, otp } = req.body;
 
-  //create user
-  const user = await userModel.create({
-    username,
-    email,
-    password: hash,
-  });
+    if (!email || !otp) {
+      return res.status(400).json({ message: "Please provide email and OTP" });
+    }
 
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
+    const user = await userModel.findOne({ email }).select("+otp +otpExpiry");
 
-  res.cookie("token", token,{
-    httpOnly: true,
-  });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-  res.status(201).json({
-    message: "User registered successfully",
-    user: {
-      id: user._id,
-      email: user.email,
-      username: user.username,
-    },
-  });
+    if (user.isVerified) {
+      return res.status(400).json({ message: "Email already verified" });
+    }
+
+    // Check expiration
+    if (user.otpExpiry < Date.now()) {
+      user.otp = null;
+      user.otpExpiry = null;
+      await user.save();
+      return res.status(400).json({ message: "OTP expired. Please request a new one." });
+    }
+
+    // Hash and compare
+    const otpHash = hashOTP(otp);
+    if (user.otp !== otpHash) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    // Mark as verified (but don't create full account yet)
+    user.isVerified = true;
+    user.otp = null;
+    user.otpExpiry = null;
+
+    await user.save();
+
+    res.json({ message: "Email verified successfully. Complete your registration." });
+  } catch (err) {
+    res.status(500).json({ message: err.message || "Verification failed" });
+  }
+}
+// ───────────────────────────────────────────────────
+// @name resendOTP - Bonus: Allow resending OTP
+// ───────────────────────────────────────────────────
+async function resendOTP(req, res) {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Please provide email" });
+    }
+
+    const user = await userModel.findOne({ email });
+
+    if (!user || user.isVerified) {
+      return res.status(400).json({ message: "Cannot resend OTP" });
+    }
+
+    // Generate new OTP
+    const otp = generateOTP();
+    const otpHash = hashOTP(otp);
+    const otpExpiry = Date.now() + 5 * 60 * 1000;
+
+    user.otp = otpHash;
+    user.otpExpiry = otpExpiry;
+    await user.save();
+
+    await sendOTP(email, otp);
+    console.log(`🔐 New OTP for ${email}: ${otp}`); // Dev only
+
+    res.json({ message: "New OTP sent successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message || "Failed to resend OTP" });
+  }
 }
 
 /**
@@ -149,7 +320,10 @@ async function getMe(req, res){
 }
 
 module.exports = {
+  sendOTPController,
   registerUser,
+  verifyOTP,
+  resendOTP,
   loginUser,
   logoutUser,
   getMe

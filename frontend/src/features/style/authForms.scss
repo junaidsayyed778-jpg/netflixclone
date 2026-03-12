@@ -105,3 +105,196 @@ form {
     padding: 40px 30px;
   }
 }
+
+// ───────────────────────────────────────────────────
+// EMAIL + OTP GROUP (Flex layout)
+// ───────────────────────────────────────────────────
+.email-otp-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  
+  .form-control {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 0;
+  }
+}
+
+// OTP Button Styles
+.btn-otp {
+  background: #333;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid #555;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    background: #444;
+    border-color: #e50914;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-resend {
+  background: transparent;
+  color: #e50914;
+  border-color: #e50914;
+  
+  &:hover:not(:disabled) {
+    background: rgba(229, 9, 20, 0.1);
+  }
+}
+
+// OTP Timer
+.otp-timer {
+  font-size: 0.85rem;
+  color: #888;
+  padding: 0.6rem 1rem;
+}
+
+// OTP Section (Input + Verify Button)
+.otp-section {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0 1rem;
+  flex-wrap: wrap;
+  
+  .form-control {
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    letter-spacing: 4px;
+    font-size: 1.1rem;
+  }
+}
+
+.btn-verify {
+  background: #e50914;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  border-radius: 4px;
+  border: none;
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    background: #f40612;
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Register Button (Disabled state)
+.btn-register {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #333;
+  }
+}
+
+// Helper Texts
+.helper-text {
+  font-size: 0.85rem;
+  color: #888;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.success-text {
+  font-size: 0.9rem;
+  color: #46d369;
+  text-align: center;
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+// Error Messages
+.error-msg {
+  display: block;
+  font-size: 0.8rem;
+  color: #e50914;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.otp-error {
+  order: -1; // Show OTP error above OTP input
+  margin-bottom: 0.75rem;
+}
+
+.form-error {
+  background: rgba(229, 9, 20, 0.15);
+  border: 1px solid #e50914;
+  color: #fff;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+// Input Error State
+.form-control.error {
+  border-color: #e50914;
+  background: rgba(229, 9, 20, 0.05);
+  
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3);
+  }
+}
+
+// Spinner for Loading
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(255,255,255,0.2);
+  border-top-color: #e50914;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 1rem auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Mobile Responsive
+@media (max-width: 480px) {
+  .email-otp-group,
+  .otp-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .btn-otp,
+  .btn-verify {
+    width: 100%;
+  }
+  
+  .otp-timer {
+    text-align: center;
+    width: 100%;
+  }
+}
